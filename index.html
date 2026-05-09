@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>한투 문서 허브 | 현재 운영값 + 운영/트러블슈팅 요약</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4834d4;
+            --step-1: #ff7675;
+            --step-2: #fab1a0;
+            --step-3: #55efc4;
+            --step-4: #81ecec;
+            --step-5: #74b9ff;
+            --step-6: #a29bfe;
+            --step-7: #ffeaa7;
+            --bg-light: #f9f9f9;
+            --bubble-bg: #ffffff;
+            --border-round: 30px;
+        }
+
+        body {
+            font-family: 'Gowun Dodum', sans-serif;
+            background-color: #f0f2f5;
+            color: #2d3436;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* Hero Section */
+        header {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            text-align: center;
+            padding: 6rem 1rem;
+            border-bottom-left-radius: 50% 10%;
+            border-bottom-right-radius: 50% 10%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Jua', sans-serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        header p {
+            font-size: 1.5rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: -3rem auto 5rem;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--bubble-bg);
+            border-radius: var(--border-round);
+            padding: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 5px solid white;
+            position: relative;
+        }
+
+        .card-tag {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: var(--step-1);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-family: 'Jua', sans-serif;
+            font-size: 2.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .emoji-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .highlight {
+            background-color: #fff9db;
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #e17055;
+        }
+
+        /* Description blocks */
+        .desc-box {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            border-left: 8px solid var(--primary);
+        }
+
+        /* Visual Steps */
+        .step-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+            margin: 2rem 0;
+            background: #f1f2f6;
+            padding: 2rem;
+            border-radius: 20px;
+            gap: 1.5rem;
+        }
+
+        .team-box {
+            text-align: center;
+            flex: 1;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .face {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .score {
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-top: 1rem;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 10px;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+        }
+
+        .checklist li {
+            background: #f8f9fa;
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .checklist li:hover {
+            border-color: var(--primary);
+        }
+
+        .checklist .icon-circle {
+            min-width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Timer bar */
+        .timer-container {
+            width: 100%;
+            background: #dfe6e9;
+            height: 30px;
+            border-radius: 50px;
+            margin: 2rem 0;
+            overflow: hidden;
+            border: 3px solid #fff;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .timer-bar {
+            height: 100%;
+            background: linear-gradient(to right, #ff7675, #fab1a0);
+            width: 100%;
+            animation: burn 600s linear infinite;
+        }
+
+        @keyframes burn {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0%;
+            }
+        }
+
+        /* Grid for cases */
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .case-item {
+            padding: 2rem;
+            border-radius: 20px;
+            border: 3px dashed #ddd;
+            background: white;
+        }
+
+        .bad-case {
+            background: #fff5f5;
+            border-color: #ff7675;
+        }
+
+        .good-case {
+            background: #f0fff4;
+            border-color: #55efc4;
+        }
+
+        .case-title {
+            font-family: 'Jua', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Multi-column features */
+        .feature-columns {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .feature-col {
+            flex: 1;
+            min-width: 250px;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-top: 8px solid var(--primary);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .summary-item {
+            background: linear-gradient(180deg, #ffffff, #f8f9ff);
+            border: 2px solid #ececff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .summary-item strong {
+            display: block;
+            color: var(--primary);
+            font-family: 'Jua', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .summary-item p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7rem;
+            margin-top: 1.2rem;
+        }
+
+        .pill {
+            background: #eef2ff;
+            color: #3d3bb3;
+            border-radius: 999px;
+            padding: 0.45rem 0.9rem;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+
+        .info-note {
+            background: #eefaf9;
+            border: 2px solid #b8ece7;
+            border-radius: 18px;
+            padding: 1.25rem 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-note strong {
+            color: #0f8b7f;
+        }
+
+        .glossary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .glossary-card {
+            background: #fff;
+            border: 2px solid #edf0ff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .glossary-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;
+            font-family: 'Jua', sans-serif;
+            color: var(--primary);
+            font-size: 1.35rem;
+        }
+
+        .glossary-card p {
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        .config-table-wrap {
+            margin-top: 2rem;
+            overflow-x: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+        }
+
+        .config-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            min-width: 760px;
+        }
+
+        .config-table th,
+        .config-table td {
+            padding: 1rem 1.1rem;
+            text-align: left;
+            border-bottom: 1px solid #eef1f5;
+            vertical-align: top;
+        }
+
+        .config-table th {
+            background: #eef2ff;
+            color: #35349f;
+            font-family: 'Jua', sans-serif;
+            font-size: 1.15rem;
+        }
+
+        .config-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            background: #f5f7fb;
+            padding: 0.15rem 0.45rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .process-list {
+            margin: 2rem 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .process-list li {
+            background: #fff;
+            border: 2px solid #edf0ff;
+            border-radius: 20px;
+            padding: 1.35rem 1.5rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.04);
+        }
+
+        .process-step {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            border-radius: 999px;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.7rem;
+        }
+
+        .process-list strong {
+            color: #2d3436;
+        }
+
+        .faq-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .faq-item {
+            background: #fff;
+            border-radius: 20px;
+            border: 2px solid #edf0ff;
+            padding: 1.5rem;
+        }
+
+        .faq-item h3 {
+            margin: 0 0 0.75rem;
+            font-family: 'Jua', sans-serif;
+            color: var(--primary);
+            font-size: 1.35rem;
+        }
+
+        .faq-item p {
+            margin: 0;
+        }
+
+        .warning-box {
+            background: #fff6e9;
+            border: 2px solid #ffd591;
+            border-radius: 20px;
+            padding: 1.4rem 1.6rem;
+            margin-top: 1.5rem;
+        }
+
+        .warning-box strong {
+            color: #c26c00;
+        }
+
+        .doc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .doc-card {
+            background: #fff;
+            border: 2px solid #edf0ff;
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .doc-card h3 {
+            margin: 0 0 0.8rem;
+            font-family: 'Jua', sans-serif;
+            color: var(--primary);
+            font-size: 1.35rem;
+        }
+
+        .doc-card p {
+            margin: 0;
+            line-height: 1.8;
+        }
+
+        .doc-card a,
+        .inline-link {
+            color: #3d3bb3;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .doc-card a:hover,
+        .inline-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Storybox */
+        .story-box {
+            background: #eccc68;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            color: #2f3542;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 5rem 1rem;
+            background: #2d3436;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🤖 한투봇 전략 설명서</h1>
+        <p>복잡한 자동매매 규칙을 사람 말로 풀어쓴 <b>현재 전략 요약본</b>입니다.<br>
+            기준일은 <b>2026-05-07</b>이고, 최종 기준은 언제나 <b>config.yaml → 현재 코드 → 활성 문서 → 이 페이지</b> 순서입니다.</p>
+    </header>
+
+    <div class="container">
+
+        <!-- 인트로 -->
+        <div class="card" style="border-color: #6c5ce7;">
+            <div class="emoji-icon">👀</div>
+            <h2>봇의 탄생 비밀: "왜 봇을 만들었을까요?"</h2>
+            <p>사람은 주식을 할 때 자꾸 <b>감정</b>에 휘둘리게 됩니다. "조금만 더 참아볼까?", "아, 지금 팔면 손해인데..." 이러다가 큰 손해를 보는 경우가 많죠.</p>
+            <p>하지만 우리 봇은 감정이 없어요! 오로지 <b>정해진 규칙</b>대로만 칼같이 움직입니다. 무조건 오를 것 같은 기대감 대신, <b>진짜로 돈이 몰리는 곳</b>만 찾아가고 시들해지면 미련
+                없이 떠나는 게 가장 큰 장점이에요.</p>
+
+            <div class="info-note">
+                <strong>중요!</strong> 이 페이지는 <b>현재 `config.yaml` 기준</b>으로 풀어쓴 설명서입니다.
+                <b>지금 실제로 적용되는 값</b>을 보여줍니다.
+            </div>
+        </div>
+
+        <!-- 현재 운영값 요약 -->
+        <div class="card" style="border-color: #55efc4;">
+            <div class="card-tag" style="background: #00b894;">현재 운영값</div>
+            <h2>"지금 이 봇은 어떻게 움직이나요?"</h2>
+            <p>아래 카드만 잡으면 현재 프로그램 성격을 거의 다 이해할 수 있어요. 지금 HANTU는 <b>최대 2종목 운용</b>, <b>실제 1~3위 테마 제한 추적</b>, <b>순위별 차등 진입</b>, <b>꽤
+                    긴 보유 시간</b> 성향입니다.</p>
+
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>진입 기준</strong>
+                    <p>테마는 <b>3종목 이상</b> 같이 움직여야 하고, 점수는 <b>상위 3종목 조화평균</b>으로 계산합니다. 강세 통과 테마가 <b>2개 이상</b>일 때만 신규 매수를 검토합니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>진입 속도</strong>
+                    <p><b>1위 테마군은 3초</b>, <b>2위 테마는 20초</b>, <b>3위 테마는 30초</b> 유지돼야 신규 매수를 검토합니다. 메인 감시는 0.2초마다 돌아갑니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>탐색 범위</strong>
+                    <p><b>실제 1~3위 테마</b>를 보되, 1위 테마는 <b>상위 3종목</b>, 2위·3위 테마는 <b>1등 종목만</b> 검토합니다. 동시 보유는 <b>최대 2종목</b>입니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>청산 기준</strong>
+                    <p>일반 종목은 <b>-7.0% / 3초</b> 손절과 <b>첫 창 10분 / 이후 120초</b> 타임스테이지를 씁니다.
+                        매수 직후에는 <b>하이브리드 익절 지정가</b>를 깔아 일부 수익을 먼저 실현합니다. 단, 상한가가 너무 가까워 최고 익절목표까지 주문할 수 없으면 억지 주문을 넣지 않고 <b>타임스테이지</b>로 관리합니다.
+                        시가총액 <b>10조원 이상</b> 종목은 장중에는 손절만 보고, 분할익절과 시간형 청산은 보류한 뒤 종가 자동청산에 맡깁니다.
+                        청산 시 <b>디스코드에 자연어</b>로 이해하기 쉽게 사유를 알려주며, 리포트는 <b>주문번호 매칭</b>으로 중복 시각 체결도 정확히 계산합니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>차단과 중첩</strong>
+                    <p><b>전일 강세 필터는 꺼져 있어</b> 전일 강세 테마도 매수 후보가 될 수 있습니다. 다만 오늘 BUY 체결된 <b>종목과 매수근거 테마</b>는 당일 재진입 금지입니다. <b>강세 중첩 후보</b>는 GUI/Discord 표시와 복기용 신호이며, 현재 자동매수 점수에는 반영하지 않습니다.</p>
+                </div>
+            </div>
+
+            <div class="pill-row">
+                <span class="pill">같은 종목 재진입 금지</span>
+                <span class="pill">같은 테마 재진입 금지</span>
+                <span class="pill">상한가 신규매수 금지</span>
+                <span class="pill">VI 종목 신규매수 금지</span>
+                <span class="pill">09:30 이후 신규진입 금지</span>
+                <span class="pill">기준고가 +1틱 1.0초 유지</span>
+                <span class="pill">전일 강세 매수 허용</span>
+                <span class="pill">강세 중첩은 표시용</span>
+            </div>
+        </div>
+
+        <div class="card" style="border-color: #a29bfe;">
+            <div class="card-tag" style="background: #6c5ce7;">문서 지도</div>
+            <h2>"이 페이지 말고 어디를 보면 되나요?"</h2>
+            <p>이 HTML은 <b>사람이 보는 현재 규칙 요약본</b>입니다. Markdown 문서는 LLM/Codex가 패치 전에 맥락을 잡기 위한 활성 문서만 남겼습니다.</p>
+
+            <div class="doc-grid">
+                <div class="doc-card">
+                    <h3>문서 지도</h3>
+                    <p>
+                        <a href="README.md">README.md</a><br>
+                        사람용 HTML과 LLM용 활성 문서의 관계를 설명합니다.
+                    </p>
+                </div>
+                <div class="doc-card">
+                    <h3>LLM 필수</h3>
+                    <p>
+                        <a href="00_LLM_CONTEXT.md">00_LLM_CONTEXT.md</a><br>
+                        코드 패치 전 반드시 읽는 전체 현재 맥락입니다.
+                    </p>
+                </div>
+                <div class="doc-card">
+                    <h3>진입/청산</h3>
+                    <p>
+                        <a href="01_ENTRY.md">01_ENTRY.md</a><br>
+                        <a href="02_EXIT.md">02_EXIT.md</a><br>
+                        매수 진입, 전일 강세 차단, 손절, 타임스테이지를 정리합니다.
+                    </p>
+                </div>
+                <div class="doc-card">
+                    <h3>설정/분석</h3>
+                    <p>
+                        <a href="03_CONFIG.md">03_CONFIG.md</a><br>
+                        <a href="04_LOGS.md">04_LOGS.md</a><br>
+                        설정 변경 원칙과 매매 복기 절차를 정리합니다.
+                    </p>
+                </div>
+                <div class="doc-card">
+                    <h3>런타임/API</h3>
+                    <p>
+                        <a href="05_RUNTIME.md">05_RUNTIME.md</a><br>
+                        실행 구조, KIS REST/WS, 복구, 상태파일, 장애 점검을 정리합니다.
+                    </p>
+                </div>
+                <div class="doc-card">
+                    <h3>삭제한 것</h3>
+                    <p>
+                        과거 Markdown 문서는 LLM 혼란 방지를 위해 삭제했습니다.<br>
+                        현재 맥락은 활성 문서에만 남깁니다.
+                    </p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>읽는 우선순위</strong>:
+                사람은 이 페이지를 먼저 보면 되고, LLM/Codex는 <b>AGENTS.md → 00_LLM_CONTEXT.md → 관련 활성 문서 1개</b>를 먼저 읽어야 합니다.
+                현재 값은 <b>`config.yaml` → 현재 코드 → 활성 문서 → 이 페이지</b> 순으로 믿는 것이 맞습니다.
+            </div>
+        </div>
+
+        <div class="card" style="border-color: #81ecec;">
+            <div class="card-tag" style="background: #00cec9;">실전 운영</div>
+            <h2>"전략 숫자만 보면 반만 이해한 겁니다"</h2>
+            <p>이 봇은 단순히 <b>언제 사고 언제 파는지</b>만 아는 것으로는 부족합니다. 실전에서는 장전 해석, 복구 상태, 데이터 신선도, 예외 정지가 함께 돌아갑니다.</p>
+
+            <ul class="process-list">
+                <li>
+                    <span class="process-step">운영 1</span><br>
+                    <strong>장전 `09:00` 이전 KIS `500`은 정상 범주일 수 있습니다</strong><br>
+                    체결/잔고/주문가능현금 조회가 일시적으로 실패해도 바로 장애로 단정하지 않고, 위험한 시작 복구를 보류한 뒤 정규장에 다시 시도합니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 2</span><br>
+                    <strong>시작 복구가 끝나기 전엔 진입부터 막습니다</strong><br>
+                    최신 운영 기준에서는 주문 직전까지 갔다가 막히는 게 아니라, 진입 단계에서 바로 <b>`잔고 동기화 필요`</b>로 차단합니다. 다만 로컬 보유 수량이 있는 보호청산 매도는 허용합니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 3</span><br>
+                    <strong>보유 가격은 WS 우선, stale일 때만 REST 보강</strong><br>
+                    메인 루프는 빠르지만 가격은 무식하게 REST를 때리지 않습니다. WS가 최근 `3초` 안에 살아 있으면 그대로 쓰고, 그보다 오래 끊겼을 때만 REST로 보강합니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 4</span><br>
+                    <strong>체결통보가 확인되지 않으면 신규 매수는 닫습니다</strong><br>
+                    체결통보 TR은 <b>H0STCNI0</b>이고, 구독 성공 응답은 <b>OPSP0000</b>입니다. 이 성공 응답이 확인되지 않으면 봇은 새 매수만 fail-closed로 막고, 이미 들고 있는 종목의 보호청산 감시는 계속합니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 5</span><br>
+                    <strong>KIS PINGPONG은 직접 응답하고, 내장 ping은 끕니다</strong><br>
+                    KIS 실전 WS는 서버가 보내는 <b>PINGPONG</b>에 즉시 pong으로 답해 세션을 유지합니다. <span class="mono">websocket-client</span>의 자체 주기 ping은 timeout 원인이 될 수 있어 현재 <span class="mono">ping_interval_sec: 0.0</span>으로 꺼둡니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 6</span><br>
+                    <strong>WS 구독 예산은 종목 수가 아니라 스트림 수입니다</strong><br>
+                    현재 예산은 <b>41개 스트림</b>입니다. 체결통보도 1개를 차지하고, 종목 하나는 현재가/예상체결가/시장상태를 각각 1개씩 씁니다. 필요한 묶음을 다 확보하지 못하면 부분 구독을 남기지 않고 해당 종목 구독을 건너뜁니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 7</span><br>
+                    <strong>타임스테이지는 VI / 시장 정지 중 잠깐 멈춥니다</strong><br>
+                    120초 창에서 40초가 지난 뒤 VI가 걸리면, VI 해제 후 남은 80초부터 다시 셉니다. 다만 손절과 상한가 이탈 5초 확인은 별도 축이라 계속 봅니다. 즉 시간형 청산 타이머와 급락/상한가 이탈 방어는 완전히 같은 장치가 아닙니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 8</span><br>
+                    <strong>Active Poll 예외는 본체 종료로 바로 번지지 않습니다</strong><br>
+                    주문 직후 체결조회 보강 중 빈 응답, 일시 예외, 지연 후 예외가 나도 루프 보호 경로에서 짧게 쉬고 다음 루프에서 다시 봅니다. 종료 요청이 들어오면 그 대기도 즉시 깨어납니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 9</span><br>
+                    <strong>빈 테마 랭킹만으로는 보유 청산을 건드리지 않습니다</strong><br>
+                    현재 청산은 손절, 10분 타임스테이지, 상한가 이탈을 기준으로 판단하고, 조건검색 랭킹 공백 자체만으로는 강제청산하지 않습니다.
+                </li>
+                <li>
+                    <span class="process-step">운영 10</span><br>
+                    <strong>OpenDART 구조 데이터는 실시간 시세가 아닙니다</strong><br>
+                    유통주식비율, 최대주주 지분율은 복기와 위험도 확인용 저빈도 데이터이며, 장중 실시간 판단은 KIS 시세/체결 데이터가 맡습니다.
+                </li>
+            </ul>
+
+            <div class="info-note">
+                <strong>LLM용 문서</strong>:
+                <a class="inline-link" href="05_RUNTIME.md">05_RUNTIME.md</a>,
+                <a class="inline-link" href="02_EXIT.md">02_EXIT.md</a>,
+                <a class="inline-link" href="04_LOGS.md">04_LOGS.md</a>
+            </div>
+        </div>
+
+        <div class="card" style="border-color: #00cec9;">
+            <div class="card-tag" style="background: #00cec9;">안전장치</div>
+            <h2>"문제가 생기면 어디서 멈추나요?"</h2>
+            <p>실전 자동매매에서 가장 중요한 건 수익 조건보다 <b>이상할 때 새로 사지 않는 것</b>입니다. 현재 봇은 아래 지점에서 신규 매수를 보수적으로 닫고, 보유 종목의 보호청산은 가능한 한 계속 봅니다.</p>
+
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>WS guard</strong>
+                    <p>WS 인스턴스가 없거나 체결통보 TR <b>H0STCNI0</b> 구독 성공(<b>OPSP0000</b>)이 확인되지 않으면 신규 매수를 멈춥니다. 시간만 지나서 자동 해제하지 않고, 실제 성공 확인 뒤에만 다시 엽니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>시작 복구 gate</strong>
+                    <p><b>잔고 동기화</b>가 끝나기 전에는 신규 진입을 열지 않습니다. 다만 로컬에 보유 수량이 있으면 위험 방어를 위해 보호청산 매도는 허용합니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>Active Poll</strong>
+                    <p>주문 직후 WS 체결통보가 늦거나 빠져도 <b>0.5초 주기</b>로 체결 상태를 다시 확인합니다. 한 루프에서 최대 <b>3건</b>까지 처리하고, 조회 예외가 나도 본체를 바로 죽이지 않고 다음 루프에서 다시 봅니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>주기 잔고 동기화</strong>
+                    <p>장중에는 약 <b>20초 간격</b>으로 계좌 잔고와 로컬 포지션을 다시 맞춥니다. 잔고에서 사라진 포지션은 바로 지우지 않고 SELL 체결 복원을 먼저 시도합니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>상태파일 정리</strong>
+                    <p><b>time_stage_states.json</b>은 신뢰 가능한 잔고 스냅샷이 있을 때만 비보유 종목을 정리합니다. 저장 실패는 성공으로 보지 않고, 다음 저장 기회에 다시 시도할 수 있게 상태를 남깁니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>분석 기준</strong>
+                    <p>거래 파일의 현재 기준 필드는 <b>event</b>입니다. 주문은 <b>BUY_ORDER/SELL_ORDER</b>, 실제 체결은 <b>BUY/SELL</b>로 나눠 봐야 성과와 차단 목록이 왜곡되지 않습니다.</p>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>운영 원칙</strong>:
+                장애처럼 보이는 순간에도 바로 설정을 바꾸지 않습니다. 먼저 <b>config.yaml 현재값</b>, <b>data/trades</b>, <b>data/structured_logs</b>, <b>logs</b>, <b>상태파일</b> 순서로 증거를 맞춰보고, 로그 문제인지 전략 문제인지 API/복구 문제인지 나눠서 봅니다.
+            </div>
+        </div>
+
+        <!-- 용어 번역기 -->
+        <div class="card" style="border-color: #81ecec;">
+            <div class="card-tag" style="background: #00cec9;">용어 번역기</div>
+            <h2>"이 말들이 뭘 뜻하는지부터 알아야 해요"</h2>
+            <p>프로그램을 이해할 때 가장 많이 헷갈리는 용어를 쉬운 말로 바꿔놓았습니다. 이 구간만 읽어도 로그와 설정표가 훨씬 잘 읽힙니다.</p>
+
+            <div class="glossary-grid">
+                <div class="glossary-card">
+                    <h3>테마</h3>
+                    <p>같은 이슈로 같이 움직이는 종목 무리예요. 예: 반도체, 로봇, 우주항공, 바이오.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>1위 테마군</h3>
+                    <p>현재 가장 강한 쪽으로 묶인 테마 그룹입니다. 상한가 장세에서는 여러 테마가 공동선두로 같이 묶일 수 있어요.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>breadth</h3>
+                    <p>그 테마 안에서 <b>같이 강한 종목이 얼마나 많으냐</b>를 뜻합니다. 현재 순위는 먼저 <b>상위 3종목 조화평균 점수</b>로 정하고, breadth는 점수가 같은 경우의 보조 기준으로만 씁니다. 단, 상위 3종목이 모두 상한가인 테마끼리는 breadth 차이로 1위/2위를 가르지 않고 공동 1위군으로 봅니다. 현재 계산값은 <b>min_symbols_per_theme=3</b>, <b>theme_avg_top_k=3</b>입니다.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>limit-up</h3>
+                    <p>상한가입니다. 현재 봇은 상한가 종목을 신규 매수하지 않고, 이미 보유한 종목이 상한가면 청산을 더 신중하게 처리합니다.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>타임스테이지</h3>
+                    <p>보유 테마가 2위 이하로 내려왔을 때 시작되는 시간형 청산 규칙입니다. 첫 창 안에 <b>새 당일 고가</b>가 나오지 않으면 정리하고, 이후에도 같은 기준으로 짧은 추적 창을 이어갑니다.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>VI</h3>
+                    <p>변동성 완화 장치예요. 주가가 너무 급하게 움직일 때 거래소가 잠깐 브레이크를 거는 상태라, 신규 진입을 위험하다고 보고 막습니다.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>재진입 금지</h3>
+                    <p>현재 설정에서는 같은 종목도, 같은 테마도 당일 다시 사지 못합니다. 한 번 매매한 종목과 테마는 같은 날 신규 진입 대상에서 제외됩니다.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>체결통보</h3>
+                    <p>주문이 실제 체결됐는지 알려주는 WS 알림입니다. 실전 TR은 <b>H0STCNI0</b>이고, 구독 성공 응답은 <b>OPSP0000</b>입니다.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>fail-closed</h3>
+                    <p>확인이 안 될 때는 새 매수를 열지 않는 보수적 상태입니다. 체결통보가 확인되지 않으면 신규 매수만 닫고, 보유 종목 청산 판단은 계속합니다.</p>
+                </div>
+                <div class="glossary-card">
+                    <h3>Active Poll</h3>
+                    <p>WS 체결통보 누락을 보강하기 위해 주문 직후 REST 체결조회로 다시 확인하는 안전망입니다. 현재 주기는 0.5초입니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 상세 설정표 -->
+        <div class="card" style="border-color: #74b9ff;">
+            <div class="card-tag" style="background: #0984e3;">설정표</div>
+            <h2>"지금 실제 숫자는 이렇습니다"</h2>
+            <p>아래 표는 현재 <span class="mono">config.yaml</span> 기준 운영값을 쉬운 말로 정리한 것입니다. 이 HTML만 보고도 현재 프로그램의 성격을 거의 복원할 수
+                있게 만든 구간입니다.</p>
+
+            <div class="config-table-wrap">
+                <table class="config-table">
+                    <thead>
+                        <tr>
+                            <th>항목</th>
+                            <th>현재 값</th>
+                            <th>뜻</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>테마 인정 최소 종목 수</td>
+                            <td><span class="mono">THEME_POLICY.min_symbols_per_theme: 3</span></td>
+                            <td>3종목 이상 같이 움직여야 진짜 테마로 인정합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>테마 강도 계산</td>
+                            <td><span class="mono">THEME_POLICY.theme_avg_top_k: 3</span></td>
+                            <td>점수는 상위 3종목 등락률의 조화평균입니다. 상위 2종목 실험은 아직 실제 설정에 적용하지 않았습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>최소 테마 점수</td>
+                            <td><span class="mono">THEME_POLICY.standard_entry_min_strength: 3.0</span></td>
+                            <td>상위 3종목 조화평균이 3.0% 미만이면 테마 수가 충분해도 신규매수 검토에서 제외합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>1위 테마군 유지 시간</td>
+                            <td><span class="mono">3초</span></td>
+                            <td>1위 테마군이 최소 3초 버텨야 진입 검토를 시작합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>신규매수 최소 강세 테마 수</td>
+                            <td><span class="mono">2개</span></td>
+                            <td>강세 테마가 1개뿐이면 장초반 단독 테마 노이즈로 보고 매수하지 않습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>테마 탐색 범위</td>
+                            <td><span class="mono">실제 1~3위</span></td>
+                            <td>실제 1~3위 테마까지 보되, 2위·3위는 더 오래 확인하고 테마 내 1등 종목만 봅니다.</td>
+                        </tr>
+                        <tr>
+                            <td>테마 내 검토 종목</td>
+                            <td><span class="mono">상위 3종목</span></td>
+                            <td>1위 테마는 1~3등 후보까지, 2위·3위 테마는 1등 후보만 실제 매수 대상으로 봅니다.</td>
+                        </tr>
+                        <tr>
+                            <td>동시 보유 수</td>
+                            <td><span class="mono">최대 2종목</span></td>
+                            <td>동시에 최대 두 종목까지 보유할 수 있습니다. 1회 투자금은 전체 슬롯 예산의 절반 기준이라 두 번째 종목도 같은 슬롯 크기로 계산합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>매수 주수 계산</td>
+                            <td><span class="mono">정수 주수</span></td>
+                            <td>1회 투자금으로 살 수 있는 주식 수만 삽니다. 비싼 종목은 남는 현금이 생길 수 있고, 1주도 살 수 없으면 매수하지 않습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>같은 종목 재진입</td>
+                            <td><span class="mono">금지</span></td>
+                            <td>같은 날 다시 신호가 떠도 이미 매매한 종목은 재진입하지 않습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>같은 테마 재진입</td>
+                            <td><span class="mono">금지</span></td>
+                            <td>같은 테마 안에서 A를 팔고 B를 다시 사는 흐름도 같은 날에는 막습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>전일 강세 테마</td>
+                            <td><span class="mono">previous_day_strong_theme_filter.enabled: false</span></td>
+                            <td>전일 강세였던 테마도 오늘 매수 후보로 허용합니다. 필터를 다시 켜더라도 순위에서 제거하지 않고 매수 후보에서만 제외합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>강세 중첩 후보</td>
+                            <td><span class="mono">표시/복기용</span></td>
+                            <td>관측 Top 3 테마 중 2개 이상에 동시에 포함된 종목을 GUI/Discord에서 강조하지만, 현재 자동매수 점수나 우선순위에는 넣지 않습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>신규 진입 제한 시각</td>
+                            <td><span class="mono">09:30</span></td>
+                            <td>장 초반 이후 추격 매수와 후반 변동 리스크를 줄이기 위해 오전 9시 30분 이후 신규 진입을 막습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>돌파 진입</td>
+                            <td><span class="mono">기준고가 +1틱 / 1.0초</span></td>
+                            <td>실제 순위와 적용 규칙별 후보에 기준고가를 따로 고정하고, 그 기준보다 1틱 위를 1.0초 유지해야 매수합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>진입 차단 안전장치</td>
+                            <td><span class="mono">상한가 / VI / 시장일시정지 / 복구 전</span></td>
+                            <td>상한가 도달 종목, VI 발동 종목, 시장 일시정지 구간, 시작 복구 미완료 상태에서는 신규 매수하지 않습니다. 상한가 직전은 별도 차단이 아니라 돌파 조건과 호가 구조로 걸러집니다.</td>
+                        </tr>
+                        <tr>
+                            <td>손절</td>
+                            <td><span class="mono">-7.0% / 3초</span></td>
+                            <td>손실이 -7.0%를 넘었더라도 3초간 계속 유지될 때만 손절합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>타임스테이지</td>
+                            <td><span class="mono">첫 창 10분 / 이후 120초</span></td>
+                            <td>보유 테마가 시장 전체 1위이면 타임스테이지는 꺼진다. 2위 이하로 내려가면 60초 유예 없이 즉시 10분 타임스테이지가 시작된다. 다시 1위가 되면 타임스테이지는 중단되고 초기화된다. 이후 다시 2위 이하가 되면 새 10분 타임스테이지가 다시 시작된다. 손절은 항상 살아 있다.</td>
+                        </tr>
+                        <tr>
+                            <td>🧬 하이브리드 분할 익절</td>
+                            <td><span class="mono">+1.3~+8.8%</span></td>
+                            <td><span class="mono">EXIT.hybrid_take_profit.enabled: true</span>이면 지정가 익절 주문을 수량에 맞게 나눠 깝니다. 보유 테마가 현재 1위이면 타임스테이지 청산은 OFF이고 손절은 계속 감시합니다. 2위 이하로 내려가면 60초 유예 없이 새 10분 창부터 타임스테이지가 작동하며, 시장가 청산 조건이 생기면 기존처럼 지정가를 취소한 뒤 정리합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>대형주 장중 보유</td>
+                            <td><span class="mono">EXIT.large_cap_intraday_hold.enabled: true</span><br><span class="mono">threshold_trillion_won: 10</span></td>
+                            <td>시가총액이 설정 기준 이상이면 장중에는 손절만 허용합니다. 타임스테이지, 테마순위 청산, 상한가 이탈 청산, 하이브리드 지정가 익절은 보류하지만 종가 동시호가 자동청산은 그대로 맡깁니다. 기준값 1은 1조원, 10은 10조원입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>상한가 이탈 확인</td>
+                            <td><span class="mono">5초</span></td>
+                            <td>상한가가 풀려도 5초 동안 진짜 이탈인지 다시 보고 정리합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>종가 상한가 익일보유</td>
+                            <td><span class="mono">허용</span></td>
+                            <td>내 보유 종목 자체가 상한가 종가일 때만 익일까지 넘기고, 다음날 오전 동시호가에 매도 주문을 넣습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>WS 체결통보 gate</td>
+                            <td><span class="mono">H0STCNI0 / OPSP0000</span></td>
+                            <td>체결통보 TR 구독 성공 응답이 확인되지 않으면 신규 매수를 fail-closed로 막고, 보유 청산 판단은 계속합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>WS 구독 예산</td>
+                            <td><span class="mono">41 스트림</span></td>
+                            <td>종목 수가 아니라 스트림 수입니다. 체결통보 1개, 종목별 현재가/예상체결가/시장상태가 각각 1개씩 계산됩니다.</td>
+                        </tr>
+                        <tr>
+                            <td>WS keep-alive</td>
+                            <td><span class="mono">PINGPONG / ping 0.0</span></td>
+                            <td>KIS 서버 PINGPONG에는 즉시 pong으로 답하고, websocket-client 자체 주기 ping은 꺼둡니다.</td>
+                        </tr>
+                        <tr>
+                            <td>Active Poll</td>
+                            <td><span class="mono">0.5초 / 최대 3건</span></td>
+                            <td>주문 직후 체결 누락을 보강하기 위해 REST 체결조회로 짧게 다시 확인합니다. 일시 예외가 나도 본체 종료로 바로 전파하지 않습니다.</td>
+                        </tr>
+                        <tr>
+                            <td>주기 잔고 동기화</td>
+                            <td><span class="mono">20초</span></td>
+                            <td>로컬 포지션과 계좌 잔고가 어긋나는지 장중에도 계속 맞춰봅니다.</td>
+                        </tr>
+                        <tr>
+                            <td>구조화 로그</td>
+                            <td><span class="mono">60초 스냅샷</span></td>
+                            <td>상태 스냅샷과 진입/청산 문맥을 data/structured_logs에 남겨 사후 복기와 오류 분석에 씁니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="warning-box">
+                <strong>중요 해석</strong>: 지금 봇은 <b>보유 종목의 매수근거 테마가 시장 전체 1위일 때</b> 타임스테이지를 끄고, <b>보유 종목 자체가 상한가일 때</b> 시간형 만료를 유예합니다.
+                또 <b>시가총액 10조원 이상 대형주</b>는 장중에 손절만 허용하지만, 이것은 익일 보유 확정이 아니라 <b>종가 자동청산 유지</b>입니다.
+                스킵했던 상위 후보, 강세 중첩 표시, 다른 테마의 움직임만으로 보유 시간을 자동 연장하지는 않습니다.
+            </div>
+        </div>
+
+        <div class="card" style="border-color: #74b9ff;">
+            <div class="card-tag" style="background: #0984e3;">구조와 데이터</div>
+            <h2>"속에서는 이런 엔진이 같이 돌아갑니다"</h2>
+            <p>겉으로는 한 종목을 사고파는 봇처럼 보이지만, 실제로는 <b>체결 보강</b>, <b>잔고 동기화</b>, <b>WS 유지</b>, <b>전략 스텝</b>, <b>리포트 기록</b>이 계속
+                같이 움직입니다.</p>
+
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>런타임 흐름</strong>
+                    <p><b>Active Poll</b>로 주문 직후 체결 누락을 보강하고, <b>주기 잔고 동기화</b>로 수량과 문맥을 맞춘 뒤, 체결통보 TR <b>H0STCNI0</b> 구독 성공(<b>OPSP0000</b>) 확인, 전략 1스텝, 상태 출력이 이어집니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>상태 저장</strong>
+                    <p><b>`data/trades`</b>에는 거래 이벤트, <b>`data/positions.json`</b>에는 현재 포지션, <b>`data/daily_blocked.json`</b>에는 당일
+                        차단, <b>`data/time_stage_states.json`</b>에는 타임스테이지 상태를 저장합니다. 포지션/타임스테이지 저장 실패는 실패로 보고, 타임스테이지는 저장 재시도 상태를 유지합니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>KIS 역할</strong>
+                    <p>실시간 현재가, 체결, 예상체결가, 잔고, 주문가능현금, VI와 시장상태처럼 <b>장중 판단에 필요한 신선한 데이터</b>는 KIS가 맡습니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>OpenDART 역할</strong>
+                    <p><b>유통주식수</b>, <b>유통주식비율</b>, <b>최대주주 지분율</b>처럼 느리게 바뀌는 구조 데이터는 OpenDART를 써서 별도 캐시에 쌓아 둡니다. API 키는 <b>config.yaml의 DART.api_key</b>에서 읽습니다.</p>
+                </div>
+            </div>
+
+            <div class="desc-box">
+                <b>한 줄 요약</b><br>
+                장중 판단은 <b>KIS 실시간 데이터</b>로 하고, 복기와 위험도 해석은 <b>OpenDART 구조 데이터</b>와 저장 파일로 뒷받침하는 이중 구조입니다.
+            </div>
+
+            <div class="info-note">
+                <strong>LLM용 문서</strong>:
+                <a class="inline-link" href="05_RUNTIME.md">05_RUNTIME.md</a>
+            </div>
+        </div>
+
+        <!-- 1단계: 테마 점수 계산 (조화평균 쉽게 설명) -->
+        <div class="card">
+            <div class="card-tag" style="background: var(--step-1);">1단계 : 진짜 친구들 찾기</div>
+            <h2>"혼자 노는 애들은 안 사요!"</h2>
+            <p>주식 시장에는 '반도체', '로봇', '우주항공' 등 같은 무리로 묶여서 움직이는 친구들(테마)이 있어요. 보통 사람들은 무리 중에서 <b>가장 많이 오르는 1등</b>만 보고 덥석
+                사버립니다. 하지만 우린 그러지 않아요!</p>
+
+            <div class="desc-box">
+                <p>💡 <b>우리 봇의 핵심 무기: '팀워크 점수 계산기'</b></p>
+                <p>한 명만 1등을 하고 나머지 친구들이 꼴찌라면, 그건 진짜 유행하는 무리가 아니라 누군가 장난을 친 <b>'가짜 무리'</b>일 확률이 높아요! 봇은 무리 친구들이 <b>다 같이
+                        손잡고 오르고 있는지</b> 깐깐하게 팀워크 점수를 매깁니다.</p>
+            </div>
+
+            <div class="info-note">
+                <strong>현재 실제 규칙</strong>:
+                테마는 <b>최소 3종목</b>이 붙어야 하고, 점수는 <b>상위 3종목</b>으로 계산합니다.
+                순위는 상위 3종목 조화평균 점수를 먼저 보고, breadth는 점수가 같은 경우의 보조 기준으로만 씁니다.
+                또 상한가 장세에서는 상위 3종목이 모두 상한가인 테마들을 <b>공동 1위군</b>으로 묶고, breadth는 그 안의 참고 정보로만 봅니다.
+            </div>
+
+            <div class="step-visual">
+                <div class="team-box bad-case">
+                    <span class="face">😫</span>
+                    <p><b>가짜 유행 (함정)</b></p>
+                    <p style="font-size: 0.9rem;">반도체 A: +15%<br>반도체 B: +0.1%<br>반도체 C: -1%</p>
+                    <span class="score" style="background: #ff7675; color: white;">봇 점수 : 약 0.03점 (탈락)</span>
+                    <p style="margin-top:0.5rem; font-size:0.85rem; color:#d63031;">"한 명만 뛰면 조화평균이 눌림!"</p>
+                </div>
+
+                <div class="team-box good-case">
+                    <span class="face">😎</span>
+                    <p><b>진짜 유행 (대박)</b></p>
+                    <p style="font-size: 0.9rem;">로봇 A: +5%<br>로봇 B: +4%<br>로봇 C: +3%</p>
+                    <span class="score" style="background: #55efc4; color: #2d3436;">봇 점수 : 약 3.8점 (합격)</span>
+                    <p style="margin-top:0.5rem; font-size:0.85rem; color:#00b894;">"오! 다같이 영차영차 오르네!"</p>
+                </div>
+            </div>
+            <p style="text-align: center; color: #636e72;">이 원리를 수학에서는 <b>'조화평균'</b>이라고 부르지만, 우리는 그냥 <b>'다 같이 스마일
+                    법칙'</b>이라고 부를게요!</p>
+        </div>
+
+        <!-- 2단계: 순위별 유지시간 -->
+        <div class="card">
+            <div class="card-tag" style="background: var(--step-2); color: #2d3436;">2단계 : 인내심 테스트</div>
+            <h2>"1위는 3초, 2위는 20초, 3위는 30초 확인합니다!"</h2>
+            <p>드디어 엄청나게 강력한 팀워크를 가진 무리를 찾았어요! 당장 사야 할까요? 아닙니다. 시장에는 잠깐 예뻐 보였다가 순식간에 시들어버리는 주식도 많기 때문에 실제 순위별로 확인 시간이 다릅니다.</p>
+
+            <div class="story-box">
+                "1위 테마군은 <b>3초</b>, 2위 테마는 <b>1~2위 권역 20초</b>, 3위 테마는 <b>1~3위 권역 30초</b>를 버텨야 해!"
+            </div>
+
+            <p>봇은 0.2초마다 계속 순위를 확인합니다. 1위는 <b>1위 테마군</b> 기준으로 보고, 상한가 장세에서 공동선두끼리 자리만 바뀌는 정도는 바로 초기화하지 않습니다. 2위와 3위는 각각 실제 1~2위, 1~3위 권역 안에 연속으로 머문 시간을 따로 셉니다.</p>
+        </div>
+
+        <!-- 3단계: 매수 직전 진입 금지 조건 검사 -->
+        <div class="card" style="background: #e3f2fd;">
+            <div class="card-tag" style="background: var(--step-5); color: white;">3단계 : 입장 검문소</div>
+            <h2>"마지막 진입 금지 조건을 확인합니다!"</h2>
+            <p>순위별 유지시간을 통과했으면 이제 정말 사도 될 것 같죠? 하지만 아주 조심스러운 봇은 주문 직전, 마지막 <b>진입 금지 조건</b>을 확인합니다. 아래 항목 중 하나라도 걸리면
+                절대 사지 않아요!</p>
+
+            <ul class="checklist">
+                <li>
+                    <div class="icon-circle">🧱</div>
+                    <div>
+                        <b>이미 상한가인가?</b><br>
+                        현재 설정은 상한가에 도달한 종목만 신규 매수에서 제외합니다. 상한가 직전은 별도 차단이 아니라 기준고가 +1틱 돌파와 호가 구조로 걸러집니다.
+                    </div>
+                </li>
+                <li>
+                    <div class="icon-circle">🚨</div>
+                    <div>
+                        <b>사고가 났나? (VI 발동)</b><br>
+                        가격이 너무 빠르게 변해서 거래소가 잠시 브레이크를 건(VI) 상태라면 위험해서 패스!
+                    </div>
+                </li>
+                <li>
+                    <div class="icon-circle">🎢</div>
+                    <div>
+                        <b>오늘 이미 거래한 종목/테마인가? (재진입 금지)</b><br>
+                        같은 날 한 번 다녀온 종목이나 테마라면, 다시 신호가 떠도 쫓아가지 않고 패스!
+                    </div>
+                </li>
+                <li>
+                    <div class="icon-circle">🔒</div>
+                    <div>
+                        <b>시작 복구가 아직 안 끝났나? (sync gate)</b><br>
+                        재시작 직후 잔고/체결 복구가 덜 끝났다면, `잔고 동기화 필요` 상태로 진입 자체를 막고 보호청산 매도는 별도로 봅니다.
+                    </div>
+                </li>
+                <li>
+                    <div class="icon-circle">🕒</div>
+                    <div>
+                        <b>너무 늦은 시간인가? (09:30 이후)</b><br>
+                        장 초반 이후 추격 매수와 후반 변동 리스크를 줄이기 위해, 오전 9시 30분이 지나면 새로 사지 않아요.
+                    </div>
+                </li>
+                <li>
+                    <div class="icon-circle">↗</div>
+                    <div>
+                        <b>기준고가를 제대로 돌파했나?</b><br>
+                        실제 순위와 후보 규칙별로 고정한 기준고가보다 1틱 위를 1.0초 유지해야 합니다. 상위 후보가 돌파 전이거나 유지 확인 중이면 아래 후보를 대신 사지 않습니다.
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 4단계: 10분 타이머 -->
+        <div class="card">
+            <div class="card-tag" style="background: var(--step-3); color: #2d3436;">4단계 : 피 말리는 모래시계</div>
+            <h2>"졸면 던집니다! 10분의 약속 ⏱️"</h2>
+            <p>모든 검문소를 뚫고 무사히 주식을 샀더라도, 매수근거 테마가 시장 전체 <b>1위</b>이면 타임스테이지는 꺼져 있습니다. 테마가 <b>2위 이하</b>로 내려오는 순간 <b>10분짜리 모래시계</b>가 시작되고, 다시 1위가 되면 초기화됩니다. 이후 다시 2위 이하가 되면 새 10분 창으로 다시 시작하며, 손절은 순위와 상관없이 항상 작동합니다.</p>
+
+            <div class="desc-box">
+                봇의 철학은 간단해요. <b>"내가 샀는데 10분 동안도 힘을 못 보여주면, 누군가 팔고 있는 거다!"</b>
+            </div>
+
+            <div class="timer-container" title="10분 카운트다운">
+                <div class="timer-bar"></div>
+            </div>
+            <p style="text-align: center; color: #d63031; font-weight: bold;">(첫 10분 안에 새 당일 고가를 못 만들면 가차 없이 던짐!)</p>
+
+            <div class="case-grid">
+                <div class="case-item good-case">
+                    <span class="case-title">🔥 14초 만에 가격이 더 올랐다!</span>
+                    <p><b>"오호! 힘이 좋네?"</b></p>
+                    <p>봇은 <b>새 당일 고가</b>를 확인하면 첫 창 이후에는 <b>120초 추적 창</b>으로 이어서 더 봅니다. 다만 같은 당일 고가를 다시 건드리는 것만으로는 타이머를
+                        연장하지 않습니다.</p>
+                </div>
+                <div class="case-item bad-case">
+                    <span class="case-title">💤 10분 동안 새 고가 없음</span>
+                    <p><b>"너... 쉴 타임이구나? 난 바빠!"</b></p>
+                    <p>10분이 지났는데 새 당일 고가도 못 만들고 기세가 살아나지 않았다고요? 미련 없이 <b>그 자리에서 전부 팔아버립니다.</b> 이후 연장 창에서도 새 고가가 끊기면 같은
+                        방식으로 정리합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6단계: 절대 방어선 (손절과 상한가) -->
+        <div class="card" style="border-color: #ff7675;">
+            <div class="card-tag" style="background: #d63031; color: white;">최종 단계 : 무적의 방패들</div>
+            <h2>"손절, 분할익절, 테마 1위 보호를 같이 봅니다!"</h2>
+            <p>청산은 한 가지 버튼이 아니라 여러 장치가 동시에 움직이는 구조입니다. 손절은 항상 살아 있고, 테마 1위 보호는 타임스테이지에만 영향을 주며, 하이브리드 지정가는 일부 수익을 먼저 실현하려는 장치입니다.</p>
+
+            <div class="feature-columns">
+                <div class="feature-col" style="border-top-color: #d63031;">
+                    <span style="font-size: 3rem;">🛡️</span>
+                    <h3 style="color: #d63031; margin-top: 1rem;">생명줄 에어백 (손절선)</h3>
+                    <p>평균단가 대비 <b>-7.0%</b> 이하가 <b>3초</b> 유지되면 손절합니다. 테마가 1위여도 손절은 꺼지지 않습니다. 다만 급락장에서는 실제 체결가가 손절선보다 나빠질 수 있어, 이 장치는 손실을 줄이는 장치이지 손실을 0으로 만드는 장치는 아닙니다.</p>
+                </div>
+                <div class="feature-col" style="border-top-color: #e84393;">
+                    <span style="font-size: 3rem;">🛡️</span>
+                    <h3 style="color: #e84393; margin-top: 1rem;">테마 1위 보호</h3>
+                    <p>우리가 산 종목의 매수근거 테마가 시장 전체 <b>1위</b>이면 타임스테이지를 꺼두고 시간을 차감하지 않습니다. 테마가 2위 이하로 내려오면 <b>60초 유예 없이 새 10분 타이머</b>가 시작되고, 다시 1위가 되면 초기화됩니다. 손절과 상한가 이탈 확인은 별도 축으로 계속 봅니다.</p>
+                </div>
+                <div class="feature-col" style="border-top-color: #00b894;">
+                    <span style="font-size: 3rem;">🧬</span>
+                    <h3 style="color: #00b894; margin-top: 1rem;">하이브리드 분할익절</h3>
+                    <p>매수 체결 후 <b>+1.3%, +1.8%, +2.5%, +3.5%, +5.0%, +6.8%, +8.8%</b> 단계로 지정가 익절 주문을 나눠 둡니다. 일부가 먼저 체결돼도 남은 지정가가 현재 보유수량을 이미 덮고 있으면 낮은 목표가 주문을 다시 깔지 않습니다. 상한가까지 공간이 부족하면 지정가를 억지로 만들지 않고 타임스테이지로 관리합니다. 시가총액 10조원 이상 대형주는 장중 하이브리드 지정가를 만들지 않고, 이미 있던 주문도 취소를 시도합니다.</p>
+                </div>
+                <div class="feature-col" style="border-top-color: #fdcb6e;">
+                    <span style="font-size: 3rem;">⏱️</span>
+                    <h3 style="color: #b26b00; margin-top: 1rem;">상한가 이탈 확인</h3>
+                    <p>보유 종목이 상한가인 동안은 타임스테이지 만료를 유예합니다. 상한가가 풀리면 바로 팔지 않고 <b>5초</b> 확인하며, 회복하지 못하면 상한가 이탈 청산으로 정리합니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 실제 의사결정 순서 -->
+        <div class="card" style="border-color: #a29bfe;">
+            <div class="card-tag" style="background: #6c5ce7;">의사결정 순서</div>
+            <h2>"실제로는 이 순서로 생각합니다"</h2>
+            <p>스토리형 설명만 보면 감으로 이해되지만, 실제 프로그램은 아래 순서대로 체크하면서 움직입니다.</p>
+
+            <ul class="process-list">
+                <li>
+                    <span class="process-step">진입 1</span><br>
+                    <strong>조건검색 후보 수집</strong><br>
+                    HTS 조건검색으로 현재 뜨는 종목을 먼저 모읍니다.
+                </li>
+                <li>
+                    <span class="process-step">진입 2</span><br>
+                    <strong>테마별 점수 계산</strong><br>
+                    후보를 테마로 묶고, 3종목 이상 붙은 테마만 남긴 뒤 상위 3종목 조화평균으로 강도를 계산합니다.
+                    강세 통과 테마가 2개 미만이면 단독 테마 노이즈로 보고 신규 매수를 열지 않습니다.
+                    조건검색 모니터링 GUI도 같은 기준으로 보여주며, 관측 순위는 차단 적용 전 실제 순위, 매수 검토 순위는 순위를 유지한 신규매수 검토 흐름으로 표시합니다.
+                    관측 Top 3 테마 중 2개 이상에 동시에 포함된 종목은 <b>강세 중첩 후보</b>로 GUI와 Discord 장중요약에 따로 강조하지만, 현재 자동매수 점수에는 넣지 않고 복기용 신호로만 봅니다.
+                    현재는 전일 강세 필터를 꺼두어 전일 강세 테마도 매수 후보로 봅니다. 오늘 이미 BUY 체결된 테마의 재진입차단은 별도 줄로 보여주며, 차단 테마는 매수 후보에서만 제외하고, 남은 테마도 가짜 1위가 아니라 실제 순위 규칙을 적용합니다.
+                </li>
+                <li>
+                    <span class="process-step">진입 3</span><br>
+                    <strong>상한가 장세면 공동 1위군으로 묶음</strong><br>
+                    상위 3종목이 모두 상한가인 테마들은 평균 등락률 차이로 쪼개지 않고 같은 1위군으로 봅니다. breadth는 같은 1위군 안에서 참고 정보로만 봅니다.
+                </li>
+                <li>
+                    <span class="process-step">진입 4</span><br>
+                    <strong>실제 순위별 유지시간 확인</strong><br>
+                    1위 테마군은 3초, 2위 테마는 실제 1~2위 권역 20초, 3위 테마는 실제 1~3위 권역 30초를 확인합니다.
+                </li>
+                <li>
+                    <span class="process-step">진입 5</span><br>
+                    <strong>순위별 후보 최종 점검</strong><br>
+                    상한가, VI, 시장일시정지, 09:30 이후, 재진입 금지, 시작 복구 완료 여부를 마지막으로 확인하고, 기준고가 +1틱을 1.0초 유지했을 때만 통과시킵니다. 1위 테마는 테마 내 3등까지, 2위·3위 테마는 테마 내 1등만 보며, 상위 후보가 아직 돌파 전이거나 1.0초 확인 중이면 같은 테마 아래 후보를 대신 사지 않고 기다립니다.
+                </li>
+                <li>
+                    <span class="process-step">청산 1</span><br>
+                    <strong>손절 우선 확인</strong><br>
+                    손실이 -7.0% 이하로 내려가면 3초 대기 후 손절합니다. 이 3초 hold는 동시호가 예상체결가 경로도 같이 공유합니다.
+                </li>
+                <li>
+                    <span class="process-step">청산 2</span><br>
+                    <strong>타임스테이지 진행</strong><br>
+                    보유 테마가 1위이면 OFF이고, 2위 이하로 내려오면 60초 유예 없이 10분 창이 열립니다. <b>새 당일 고가</b>가 나오면 이후 창은 <b>120초</b>로 이어집니다. VI나 시장 정지 중에는 이 시간이 줄지 않고, 해제 뒤 남은 시간부터 다시 흐릅니다. 매수 직후 하이브리드 익절 지정가도 함께 만들되, 상한가가 너무 가까우면 만들지 않고 타임스테이지로 관리합니다.
+                </li>
+                <li>
+                    <span class="process-step">청산 3</span><br>
+                    <strong>대형주는 장중 손절만</strong><br>
+                    시가총액이 설정 기준 이상이면 장중에는 타임스테이지, 테마순위, 상한가 이탈, 하이브리드 지정가 익절을 보류합니다. 손절은 계속 살아 있고, 익일 보유 확정이 아니라 종가 동시호가 자동청산은 그대로 맡깁니다.
+                </li>
+                <li>
+                    <span class="process-step">청산 4</span><br>
+                    <strong>상한가 예외</strong><br>
+                    내 보유 종목이 상한가면 타임스테이지 만료를 유예하고, 상한가가 풀리면 5초 동안 진짜 이탈인지 확인합니다.
+                </li>
+                <li>
+                    <span class="process-step">청산 5</span><br>
+                    <strong>종가 상한가면 익일 시초 동시호가 매도</strong><br>
+                    내 보유 종목 자체가 상한가 종가일 때만 익일까지 넘기고, 다음날 오전 동시호가에 매도 주문을 넣습니다.
+                </li>
+            </ul>
+        </div>
+
+        <div class="card" style="border-color: #55efc4;">
+            <div class="card-tag" style="background: #00b894;">현재 조건검색식</div>
+            <h2>"상위30"은 지금 이런 뜻입니다</h2>
+            <p><b>중요:</b> 프로그램은 이름이 <span class="highlight">상위30</span>인 HTS 조건검색식을 1차 입구로 씁니다. 즉 아무 종목이나 전부 보는 것이 아니라,
+                아래 필터를 먼저 통과한 종목들만 후보가 됩니다.</p>
+
+            <div class="desc-box">
+                <b>현재 저장된 조건식 요약</b><br>
+                ETF/ETN, 거래정지, 관리, 환기, 투자위험, 단기과열, 초저유동성 종목은 먼저 빼고, 마지막에 <b>등락률 상위 30개 보통주</b>만 가져옵니다.
+            </div>
+
+            <ul class="checklist">
+                <li><span class="icon-circle">1</span>
+                    <div><b>일간 기준</b><br>조건들은 전부 일간 기준으로 걸려 있습니다.</div>
+                </li>
+                <li><span class="icon-circle">2</span>
+                    <div><b>제외하는 종목</b><br>ETF, ETN, 거래정지, 관리, 정리매매, 환기, 초저유동성 기업은 제외합니다.</div>
+                </li>
+                <li><span class="icon-circle">3</span>
+                    <div><b>위험 / 과열 종목 제외</b><br>투자위험예고, 투자위험, 단기과열 예고, 단기과열 대상, 단기과열 연장은 결과에서 뺍니다.</div>
+                </li>
+                <li><span class="icon-circle">4</span>
+                    <div><b>보통주만 사용</b><br>주권구분이 보통주인 종목만 남깁니다.</div>
+                </li>
+                <li><span class="icon-circle">5</span>
+                    <div><b>최종 30개 선택</b><br>남은 종목 중 등락률 상위순 30종목을 1차 후보로 가져옵니다.</div>
+                </li>
+            </ul>
+
+            <div class="desc-box">
+                <b>쉽게 말하면</b><br>
+                “아무거나 다 보는 봇”이 아니라, <b>위험하고 거래 곤란한 종목은 먼저 빼고</b>, 그날 <b>가장 강하게 뜨는 보통주 30개</b>만 받아온 뒤 그 안에서 다시 테마를 계산하는
+                구조입니다.
+            </div>
+        </div>
+
+        <div class="card" style="border-color: #55efc4;">
+            <div class="card-tag" style="background: #00b894;">로그와 알림</div>
+            <h2>"장중에는 로그가 두 번째 모니터입니다"</h2>
+            <p>이 프로젝트 문서의 큰 축 하나는 <b>로그만으로도 지금 왜 안 사고, 왜 팔렸는지 복기할 수 있어야 한다</b>는 점입니다. 그래서 이 페이지에도 로그/알림 구조를 함께 적어둡니다.
+            </p>
+
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <strong>실시간 이벤트</strong>
+                    <p><b>`매수체결`</b>, <b>`매수메타`</b>, <b>`청산진단`</b> 같은 줄이 즉시 기록됩니다. 필요하면 DART 구조 메타와 매수 선정 문맥도 같이 붙습니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>상태 스냅샷</strong>
+                    <p>주기적으로 현재 포지션, 손익률, 타임스테이지 진행, 보유 테마 rank, 현금 조회 상태, 최근 진입 문맥을 남깁니다. 진입요약에는 실제 검토한 테마와 후보별 탈락 사유도 같이 남겨서, 왜 안 샀는지 바로 읽을 수 있게 합니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>장중 중간요약</strong>
+                    <p>기본은 <b>체결 기준</b>으로 집계하고, 체결이 아예 없을 때만 주문 기준 fallback을 사용합니다. Discord에도 <b>실제 체결</b>과 <b>주문 요청</b>을 다른 줄로 보여줘서 부분체결과 하이브리드 재주문을 구분합니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>일일요약</strong>
+                    <p>거래 종목 수, <b>실제 체결</b>, <b>주문 요청</b>을 따로 보여줍니다. 실제 체결은 부분체결을 포함한 횟수이고, 주문 요청은 하이브리드 지정가와 재주문까지 포함한 기록입니다.</p>
+                    <p>실현손익은 <b>KIS API 기준 공식값</b>을 먼저 보여주고, 거래파일 FIFO 손익은 <b>참고용 추정값</b>으로만 표시합니다. API 조회가 실패한 경우에는 공식값이라고 쓰지 않고 <b>임시값</b>이라고 표시합니다.</p>
+                    <p>거래 행에는 <b>사람용 판정</b>을 붙여 <b>시장 테마 3위</b>, <b>테마 내 1등</b>, <b>30초 대기 통과</b>, <b>돌파 통과</b>처럼 바로 읽히게 합니다. 원시 <span class="mono">rank</span> 값만 보고 시장 전체 순위와 테마 내 순위를 혼동하지 않게 하기 위한 표시입니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>구조화 로그</strong>
+                    <p><b>`data/structured_logs`</b> JSONL에는 청산 직전 상태, 테마 순위 문맥, 현금 조회 정상/불가 여부 같은 후처리 친화 정보가 남습니다.</p>
+                </div>
+                <div class="summary-item">
+                    <strong>디스코드 알림</strong>
+                    <p>체결, 요약, 종료, 즉시 리스크 알림뿐 아니라 <b>익일보유 확정</b>, <b>익일 장전 청산 판단</b>, <b>오늘 매수완료 재진입차단 테마</b>도 구분해서 외부로 보냅니다. 특히 청산 알림은 IT 지식이 없어도 이해하기 쉬운 <b>자연어 문장</b>으로 변환되어 전달됩니다.</p>
+                    <p>장중 요약의 테마 순위 줄에는 <b>[오늘매수완료재진입차단]</b> 표시가 직접 붙고, 강세 테마 수가 부족하면 <b>매수 안 함: 강한 테마가 1개뿐</b>, <b>필요 조건: 강한 테마 2개 이상</b>, <b>이유: 단독 테마는 장초반 노이즈일 수 있음</b>이 같이 표시됩니다. 현재 전일 강세 필터는 꺼져 있어 전일 강세 테마도 매수 후보로 보며, 오늘 매수완료 테마는 <b>실제 순위 유지, 매수 후보에서만 제외</b>로 표시됩니다. 실제 2위·3위 테마를 검토할 때는 <b>적용된 순위 규칙, 유지시간, 테마 내 허용 종목 순위</b>를 같이 보여줍니다. 복구 BUY도 가능하면 몇등주였는지와 선정 사유를 이어서 보냅니다.</p>
+                    <p>장중요약의 <b>매수 판단</b>과 <b>최근 진입 판단</b>에는 실제 검토한 후보별 탈락 사유도 같이 표시합니다. 매수 종목보다 위 순위였지만 규칙상 제외된 종목은 <b>상위 후보 제외</b>로 표시합니다.</p>
+                    <p><b>하이브리드 익절</b>은 매수 체결 때 예정 사다리를 보여주고, 주문 등록 직후에는 몇 건이 성공/실패했는지와 각 단계의 <b>목표수익률 · 수량 · 목표가</b>를 따로 보냅니다. 상한가까지 남은 공간이 부족해 하이브리드 익절을 생략하면 <b>왜 생략했는지</b>, <b>상한가까지 몇 % 남았는지</b>, <b>앞으로 타임스테이지로 관리한다는 점</b>을 따로 알립니다. 이후 실제 매도 알림은 <b>타임스테이지 청산</b>과 <b>하이브리드 익절</b>을 청산구분으로 나눠 보여줍니다.</p>
+                </div>
+            </div>
+
+            <div class="pill-row">
+                <span class="pill">진입요약</span>
+                <span class="pill">후보별 탈락사유</span>
+                <span class="pill">청산진단</span>
+                <span class="pill">상태 스냅샷</span>
+                <span class="pill">중간요약</span>
+                <span class="pill">일일요약</span>
+                <span class="pill">잔고보정</span>
+            </div>
+            <p class="description">
+                잔고보정 BUY는 신규 매수 판단이 아니라 누락 체결 복원이며, 거래파일에는 보정 출처와 사유가 함께 남는다.
+            </p>
+
+            <div class="info-note">
+                <strong>LLM용 문서</strong>:
+                <a class="inline-link" href="04_LOGS.md">04_LOGS.md</a>,
+                <a class="inline-link" href="05_RUNTIME.md">05_RUNTIME.md</a>
+            </div>
+        </div>
+
+        <div class="card" style="border-color: #ffeaa7;">
+            <div class="card-tag" style="background: #fdcb6e; color: #2d3436;">문제 해결과 다음 과제</div>
+            <h2>"지금 자주 꼬이는 지점과 앞으로 볼 일들"</h2>
+            <p>이제 문서 폴더에는 현재 운영과 패치에 필요한 활성 문서만 남깁니다. 과거 이력보다 <b>현재 코드와 현재 설정</b>을 우선합니다.</p>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>진입이 느리게 느껴질 때</h3>
+                    <p><b>`top_theme_min_hold_sec`</b>, <b>`rank_theme_entry`</b>, <b>`max_theme_scan`</b> 세 값의
+                        균형부터 봅니다. 지금은 `1위 3초 / 2위 20초 / 3위 30초 유지`와 `기준고가 +1틱 1.0초 유지`가 핵심 게이트이며, 기준고가는 실제 순위/규칙별 후보 종목 기준으로 따로 고정합니다. 상위 후보가 아직 돌파 전이거나 돌파 유지 확인 중이면 같은 테마 하위 후보를 대체 매수하지 않습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>손실이 많다고 느껴질 때</h3>
+                    <p><b>`-7.0% / 3초` 손절</b>, <b>`첫 창 10분 / 이후 120초` 타임스테이지</b>, <b>하이브리드 익절 `+1.3~+8.8%`</b>, <b>10조 이상 대형주는 장중 손절만 보고 종가 자동청산 유지</b>, <b>상한가 근접 시 하이브리드 익절 생략</b>, <b>상한가 이탈
+                            `5초`</b>, <b>기준고가 +1틱 유지 `1.0초`</b>가 현재 성향을 만듭니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>안정화에서 중요한 것</h3>
+                    <p>동시 진입 경합, 부분체결 매도 재주문, 시작 복구 순서, WS stale 시 REST 보강, 동시호가 손절 hold, 복구 BUY 문맥은 계속 깨지기 쉬운 핵심 축입니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3>아직 남은 다음 단계</h3>
+                    <p>리플레이 점검 도구, 진입 게이트 튜닝 실험, 복구 자동 스모크, 장내/다일간 순환매 감지는 앞으로 검토할 수 있는 개선 후보입니다.</p>
+                </div>
+            </div>
+
+            <div class="desc-box">
+                <b>문서 정리 원칙</b><br>
+                레거시 문서는 삭제했고, LLM에게 필요한 현재 맥락은 <b>00~05 활성 문서</b>에만 남깁니다.
+                새 전략 아이디어가 확정되면 과거 이력 문서가 아니라 활성 문서와 코드에 반영합니다.
+            </div>
+
+            <div class="info-note">
+                <strong>LLM용 문서</strong>:
+                <a class="inline-link" href="03_CONFIG.md">03_CONFIG.md</a>,
+                <a class="inline-link" href="04_LOGS.md">04_LOGS.md</a>,
+                <a class="inline-link" href="05_RUNTIME.md">05_RUNTIME.md</a>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="card" style="border-color: #ffeaa7;">
+            <div class="card-tag" style="background: #fdcb6e; color: #2d3436;">자주 헷갈리는 점</div>
+            <h2>"딱 여기서 많이 헷갈립니다"</h2>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Q. 타임스테이지는 수익이 날 때만 시작되나요?</h3>
+                    <p>아니요. 수익 여부가 아니라 <b>보유 테마 순위</b>가 기준입니다. 보유 테마가 시장 전체 1위이면 OFF이고, 2위 이하로 내려가면 60초 유예 없이 새 10분 창이 시작됩니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q. 1위 테마가 바뀌면 3초가 무조건 처음부터 다시 시작되나요?</h3>
+                    <p>아닙니다. <b>1위 테마군이 바뀔 때만</b> 다시 시작합니다. 상한가 장세에서 공동선두 안에서 순서만 바뀌는 경우는 바로 초기화하지 않습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q. 같은 테마는 다시 못 사나요?</h3>
+                    <p>현재 설정은 <b>같은 테마 재진입 금지</b>입니다. 즉 같은 날 한 번 매매한 테마에는 다시 진입하지 않습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q. 지금 봇은 공격적인가요, 보수적인가요?</h3>
+                    <p>둘 다 섞여 있습니다. 일반 종목은 <b>첫 창 10분 / 이후 120초</b> 타임스테이지로 추세를 더 보고, 상한가 보유 중에는 시간형 만료를 유예합니다.
+                        자금 운용은 최대 2종목까지 허용하고 1회 투자금은 전체 슬롯 예산의 절반씩 써서, 공격성과 안정성을 같이 잡는 쪽에 가깝습니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q. 100원짜리나 30만원짜리도 살 수 있나요?</h3>
+                    <p>현재는 별도 최저가/최고가 필터가 없습니다. 조건을 통과하면 저가주도 매수 대상이 될 수 있습니다. 비싼 종목은 1회 투자금 안에서 살 수 있는 정수 주수만 사고, 1주도 살 수 없으면 건너뜁니다.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Q. 이 페이지와 다른 문서 숫자가 다르면 뭘 믿어야 하나요?</h3>
+                    <p>항상 <span class="mono">config.yaml</span>이 우선입니다. 그다음은 현재 코드, 그다음이 설명 문서입니다. 이 페이지는 현재 설정과 맞추려
+                        노력하지만, 최종 기준은 실제 설정 파일이에요.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 마무리 요약 -->
+        <div style="text-align: center; padding: 2rem;">
+            <p style="font-size: 1.5rem; font-family: 'Jua', sans-serif; color: var(--primary);">어때요? 우리 봇의 똑똑한 하루 일과, 참
+                쉽죠? 😉</p>
+            <p>한투봇은 이 규칙들을 0.2초 주기로 확인하며, 로그와 Discord에는 왜 사고 안 샀는지, 왜 팔았는지를 남깁니다.</p>
+            <p style="color:#636e72;">핵심만 다시 말하면: <b>3종목 이상 테마</b>, <b>상위 3종목 조화평균</b>, <b>강세 통과 테마 2개 이상</b>, <b>1위 테마군 3초·2위 20초·3위 30초 유지</b>, <b>1위 테마는 3등주까지, 2위·3위 테마는 1등주만 검토</b>,
+                <b>전일 강세 테마 매수 허용</b>, <b>보유 테마 1위면 타임스테이지 OFF</b>, <b>손절은 항상 ON</b>, <b>10조 이상 대형주는 장중 손절만 보고 종가 자동청산 유지</b>, <b>상한가 종가는 익일 시초 동시호가 매도</b>가 현재 운영 뼈대예요.
+            </p>
+        </div>
+
+    </div>
+
+    <footer>
+        <h2 style="color: white; font-family: 'Jua', sans-serif;">한투 봇</h2>
+        <p style="font-size: 1.1rem; opacity: 0.8;">"상위 3종목이 같이 강한 테마만 고르고, 보유 테마가 1위일 때는 버티되, 손절과 상한가 이탈은 계속 본다."
+        </p>
+        <p style="font-size: 0.9rem; margin-top: 2rem; opacity: 0.5;">이 가이드는 실제 봇의 핵심 규칙을 쉽게 풀어쓴 요약본이자, 원문 문서로 이어지는 허브
+            페이지입니다.</p>
+    </footer>
+
+</body>
+
+</html>
